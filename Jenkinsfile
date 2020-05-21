@@ -3,7 +3,7 @@ node {
     // engine version can be defined on secret, job, folder or global.
     // the default is engine version 2 unless otherwise specified globally.
     stage('Build') {
-     git credentialsId: 'vault_jenkins_demo', url: 'git@github.com:drpdishant/vault_jenkins.git'
+     
         def secrets = [
         [
             path: 'secret/testing', engineVersion: 1, secretValues: 
