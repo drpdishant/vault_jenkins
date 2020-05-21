@@ -27,13 +27,14 @@ node {
                          engineVersion: 1]
     // inside this block your credentials will be available as env variables
     withVault([configuration: configuration, vaultSecrets: secrets]) {
-        
+        set -x 
         load "./.env"
         echo "$ANSIBLE_HOST"
         echo "$ANSIBLE_PORT"
         echo "$ANSIBLE_USER"
         echo "$ANSIBLE_HOST ansible_port=$ANSIBLE_PORT ansible_user=$ANSIBLE_USER" > hosts
         cat hosts
+        echo "Pipline Succesfull"
         // sh 'ansible-playbook main.yml'
     }
     }
