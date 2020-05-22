@@ -1,4 +1,5 @@
 node {
+    
     // define the secrets and the env variables
     // engine version can be defined on secret, job, folder or global.
     // the default is engine version 2 unless otherwise specified globally.
@@ -6,7 +7,7 @@ node {
      
         def secrets = [
         [
-            path: 'secret/testing', engineVersion: 1, secretValues: 
+            path: 'secret/testing', engineVersion: 2, secretValues: 
             [
                 [envVar: 'testing', vaultKey: 'testing_1'],
                 [envVar: 'testing_again', vaultKey: 'testing_2']
@@ -27,7 +28,7 @@ node {
                          engineVersion: 1]
     // inside this block your credentials will be available as env variables
     withVault([configuration: configuration, vaultSecrets: secrets]) {
-        set -x 
+        
         load "./.env"
         echo "$ANSIBLE_HOST"
         echo "$ANSIBLE_PORT"
