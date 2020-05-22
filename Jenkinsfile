@@ -3,18 +3,19 @@ pipeline {
     triggers {
         pollSCM('')
     }
+    script {
+    readProperties(file: .env).each {key, value -> env[key] = value }
+    }
+    environment
+    {
+        load
+    }
     stages {
         stage('Build') {
-            input {
-                message "Can we Proceed?"
-                ok "Yes"
-                submitter "Digital Varys"
-                parameters {
-                    string(name: 'PERSON', defaultValue: 'Dishant Pandya', description: 'Member')
-                }
-            }
             steps {
-                echo "${PERSON}, is proceeding..."
+                echo "$ANSIBLE_HOST"
+                echo "$ANSIBLE_PORT"
+                echo "$ANSIBLE_USER" 
             }
         }
     }
