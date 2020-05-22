@@ -10,7 +10,7 @@ pipeline {
                 ok "Yes"
                 submitter "Digital Varys"
                 parameters {
-                    string(name: 'PERSON', defaultValue: 'DigiralVarys', description: 'Member')
+                    string(name: 'PERSON', defaultValue: 'Dishant Pandya', description: 'Member')
                 }
             }
             steps {
