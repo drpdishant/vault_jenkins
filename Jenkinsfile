@@ -1,7 +1,10 @@
 pipeline {
     agent any
+    triggers {
+        pollSCM('')
+    }
     stages {
-        stage('Example') {
+        stage('Build') {
             input {
                 message "Can we Proceed?"
                 ok "Yes"
