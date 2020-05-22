@@ -4,7 +4,7 @@ pipeline {
         pollSCM('')
     }
     script {
-    readProperties(file: $PWD/.env).each {key, value -> env[key] = value }
+    readProperties(file: $PWD/env).each {key, value -> env[key] = value }
     }
     environment
     {
