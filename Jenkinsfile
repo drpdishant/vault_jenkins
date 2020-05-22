@@ -6,10 +6,7 @@ pipeline {
     script {
     readProperties(file: $PWD/env).each {key, value -> env[key] = value }
     }
-    environment
-    {
-        load
-    }
+
     stages {
         stage('Build') {
             steps {
