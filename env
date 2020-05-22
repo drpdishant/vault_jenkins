@@ -1,0 +1,3 @@
+ANSIBLE_HOST=addwebprojects.com
+ANSIBLE_PORT=32768
+ANSIBLE_USER=addweb
