@@ -12,7 +12,7 @@ pipeline {
                     {
                         env.FILENAME = readFile 'env'
                     }   
-                echo "${env.FILENAME}"
+                sh 'env.FILENAME'
                 sh '''
                 cat <<EOF | tee hosts
                 ${ANSIBLE_HOST} ansible_user=${ANSIBLBE_USER} ansible_port=${ANSIBLE_PORT}
