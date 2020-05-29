@@ -3,12 +3,16 @@ pipeline {
     triggers {
         pollSCM('')
     }
+    
 
     stages {
         stage('Build') {
             steps {
-                sh 'cat env'
-                sh 'cat main.yml'
+                script
+                    {
+                        env.FILENAME = readFile 'env'
+                    }
+                sh 'echo ${env.FILENAME}'
             }
         }
     }
