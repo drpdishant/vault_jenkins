@@ -7,8 +7,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                cat env
-                cat main.yml
+                sh 'cat env'
+                sh 'cat main.yml'
             }
         }
     }
