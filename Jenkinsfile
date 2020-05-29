@@ -11,8 +11,8 @@ pipeline {
                 script
                     {
                         env.FILENAME = readFile 'env'
-                    }
-                sh 'echo ${env.FILENAME}'
+                    }   
+                echo "${env.FILENAME}"
             }
         }
     }
