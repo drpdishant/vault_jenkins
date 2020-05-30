@@ -19,12 +19,13 @@ pipeline {
                        load "./ansible.groovy"
                     }
                 sh '''
-                tee payload.json <<"EOF"
-                {
-                "role_id": "${ROLE_ID}",
-                "secret_id": "${SECRET_ID}"
-                }
-                EOF
+                echo $ROLE_ID
+                echo $ROLE_SECRET
+                echo "{" >> payload.json
+                echo ' "role_id" : "${ROLE_ID}," >> payload.json
+                echo ' "secret_id" : "${SECRET_ID}" >> payload.json
+                echo '}' >> payload.json
+                cat payload.json
                 '''
                 sh 'echo "READING SSH KEY"'
                 sh './vault_read.sh -u $VAULT_SERVER -r $ROLE_ID -s $ROLE_SECRET -p $KV_PATH -n $KV_NAME -f $KV_FIELD'
