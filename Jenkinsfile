@@ -11,13 +11,8 @@ pipeline {
                 script
                     {
                         env.FILENAME = readFile 'env'
-                    }   
-                sh 'env.FILENAME'
-                sh '''
-                cat <<EOF | tee hosts
-                ${ANSIBLE_HOST} ansible_user=${ANSIBLBE_USER} ansible_port=${ANSIBLE_PORT}
-                EOF
-                '''
+                    }
+                echo sh(script: 'env|sort', returnStdout: true)
 
             }
         }
