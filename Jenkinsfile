@@ -18,8 +18,7 @@ pipeline {
                     {
                        load "./ansible.groovy"
                     }
-                sh 
-                '''
+                sh '''
                 tee payload.json <<"EOF"
                 {
                 "role_id": "${ROLE_ID}",
