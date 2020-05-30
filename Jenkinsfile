@@ -18,7 +18,7 @@ pipeline {
                     {
                        load "./ansible.groovy"
                     }
-                sh './vault_read.sh -u $VAULT_SERVER -r $ROLE_ID -s $ROLE_SECRET -p $KV_PATH -n $KV_NAME -f $KV_FIELD > id_rsa' 
+                sh './vault_read.sh -u $VAULT_SERVER -r $ROLE_ID -s $ROLE_SECRET -p $KV_PATH -n $KV_NAME -f $KV_FIELD > id_rsa && chmod 400 id_rsa' 
                 echo sh(script: 'env|sort', returnStdout: true)
                 sh 'echo "${ANSIBLE_HOST} ansible_user=${ANSIBLE_USER} ansible_port=${ANSIBLE_PORT}" > hosts'
                 sh 'ansible-playbook main.yml'
