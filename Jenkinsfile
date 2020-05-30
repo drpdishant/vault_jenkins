@@ -6,7 +6,7 @@ pipeline {
     environment {
         VAULT_SERVER="https://addwebprojects.com:8200"
         ROLE_ID=credentials('jenkins_app_role_id')
-        ROLE_SECRET=credentialsId('jenkins_app_role_secret')
+        ROLE_SECRET=credentials('jenkins_app_role_secret')
         KV_PATH="devops"
         KV_NAME="addwebprojects.com"
         KV_FIELD="private"
