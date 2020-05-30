@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script
                     {
-                        env.FILENAME = readFile 'env'
+                        readFile 'env'
                     }
                 echo sh(script: 'env|sort', returnStdout: true)
 
