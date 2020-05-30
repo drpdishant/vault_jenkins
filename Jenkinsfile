@@ -19,7 +19,7 @@ pipeline {
                        load "./ansible.groovy"
                     }
                 sh 'echo "READING SSH KEY"'
-                sh 'vault_read.sh -u $VAULT_ADDR -r $ROLE_ID -s $ROLE_SECRET -p $KV_PATH -n $KV_NAME -f $KV_FIELD'
+                sh './vault_read.sh -u $VAULT_ADDR -r $ROLE_ID -s $ROLE_SECRET -p $KV_PATH -n $KV_NAME -f $KV_FIELD'
                 echo sh(script: 'env|sort', returnStdout: true)
                 sh 'echo "${ANSIBLE_HOST} ansible_user=${ANSIBLE_USER} ansible_port=${ANSIBLE_PORT}"'
                 
