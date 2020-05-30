@@ -18,20 +18,10 @@ pipeline {
                     {
                        load "./ansible.groovy"
                     }
-                sh '''
-                echo $ROLE_ID
-                echo $ROLE_SECRET
-                echo "{" >> payload.json
-                echo ' "role_id" : "${ROLE_ID}," >> payload.json
-                echo ' "secret_id" : "${SECRET_ID}" >> payload.json
-                echo '}' >> payload.json
-                cat payload.json
-                '''
-                sh 'echo "READING SSH KEY"'
-                sh './vault_read.sh -u $VAULT_SERVER -r $ROLE_ID -s $ROLE_SECRET -p $KV_PATH -n $KV_NAME -f $KV_FIELD'
+                sh './vault_read.sh -u $VAULT_SERVER -r $ROLE_ID -s $ROLE_SECRET -p $KV_PATH -n $KV_NAME -f $KV_FIELD > id_rsa' 
                 echo sh(script: 'env|sort', returnStdout: true)
-                sh 'echo "${ANSIBLE_HOST} ansible_user=${ANSIBLE_USER} ansible_port=${ANSIBLE_PORT}"'
-                
+                sh 'echo "${ANSIBLE_HOST} ansible_user=${ANSIBLE_USER} ansible_port=${ANSIBLE_PORT}" > hosts'
+                ansible-playbook main.yml
             }
         }
     }
