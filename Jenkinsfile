@@ -12,6 +12,11 @@ pipeline {
         KV_FIELD="private"
     }
     stages {
+        stage('Workspace Cleanup') {
+            steps {
+                sh 'rm -rf hosts id_rsa'
+            }
+        }
         stage('Run Ansible Playbook') {
             steps {
                 script
@@ -24,11 +29,6 @@ pipeline {
                 echo "${ANSIBLE_HOST} ansible_user=${ANSIBLE_USER} ansible_port=${ANSIBLE_PORT}" > hosts
                 ansible-playbook main.yml
                 '''
-            }
-        }
-        stage('Workspace Cleanup') {
-            steps {
-                sh 'rm -rf hosts id_rsa'
             }
         }
     }
