@@ -23,7 +23,10 @@ pipeline {
                     {
                        load "./variables.groovy"
                     }
-                                // echo sh(script: 'env|sort', returnStdout: true)
+                environment {
+                    GIT_SSH_KEY=credentials('${GIT_SSH_KEY_NAME}')
+                }
+                sh 'echo "$GIT_SSH_KEY_NAME"'                // echo sh(script: 'env|sort', returnStdout: true)
                 sh './vault_read.sh -u $VAULT_SERVER -r $ROLE_ID -s $ROLE_SECRET -p $KV_PATH -n $KV_NAME -f $KV_FIELD > id_rsa && chmod 400 id_rsa && ssh-keygen -l -f id_rsa'  
                 sh '''
                 echo "${ANSIBLE_HOST} ansible_user=${ANSIBLE_USER} ansible_port=${ANSIBLE_PORT}" > hosts && \
