@@ -11,7 +11,7 @@ n) KV_NAME=${OPTARG};;
 f) KV_FIELD=${OPTARG};;
 esac
 done
-
-ACCESS_TOKEN="$(./vault write -format=json auth/approle/login role_id=${ROLE_ID} secret_id=${SECRET_ID} | jq -r .auth.client_token)"
+export VAULT_ADDR=$VAULT_ADDR
+ACCESS_TOKEN="$(vault write -format=json auth/approle/login role_id=${ROLE_ID} secret_id=${SECRET_ID} | jq -r .auth.client_token)"
 # ACCESS_TOKEN="$(curl -sL --request POST --data @payload.json ${VAULT_URL}/v1/auth/approle/login | jq -r .auth.client_token)"
 curl -sL --header "X-Vault-Token: ${ACCESS_TOKEN}" ${VAULT_URL}/v1/${KV_PATH}/data/${KV_NAME}?version=1 | jq -r .data.data.${KV_FIELD}
