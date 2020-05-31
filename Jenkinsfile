@@ -25,6 +25,7 @@ pipeline {
                 ansible-playbook main.yml
                 '''
             }
+        }
         stage('Workspace Cleanup') {
             steps {
                 sh 'rm -rf hosts id_rsa'
