@@ -35,8 +35,7 @@ pipeline {
     }
     post {
         success {
-            rocketSend 
-                channel: 'dishant', emoji: ':happy:', message: 'Job Successfull : ${env.JOB_NAME} [${env.JOB_DISPLAY_URL}]', rawMessage: true
+            rocketSend channel: 'dishant', emoji: ':happy:', message: 'Job Successfull : ${env.JOB_NAME} [${env.JOB_DISPLAY_URL}]', rawMessage: true
         }
     }
 }
