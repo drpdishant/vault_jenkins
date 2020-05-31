@@ -7,7 +7,7 @@ pipeline {
         VAULT_SERVER="https://addwebprojects.com:8200"
         ROLE_ID=credentials('jenkins_app_role_id')
         ROLE_SECRET=credentials('jenkins_app_role_secret')
-        GITS_SSH_KEY=credentials('vault_jenkins_demo')
+        GIT_SSH_KEY=credentials('vault_jenkins_demo')
         KV_PATH="devops"
         KV_NAME="addwebprojects.com"
         KV_FIELD="private"
