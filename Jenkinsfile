@@ -4,7 +4,7 @@ pipeline {
         pollSCM('')
     }
     environment {
-        VAULT_SERVR="https://addwebprojects.com:8200"
+        VAULT_SERVER="https://addwebprojects.com:8200"
         ROLE_ID=credentials('jenkins_app_role_id')
         ROLE_SECRET=credentials('jenkins_app_role_secret')
         KV_PATH="devops"
