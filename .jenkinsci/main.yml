@@ -1,10 +1,15 @@
 ---
 - hosts: all
+  name: Install Laravel Project
   gather_facts: true
+  vars_files:
+    - vars/main.yml
   pre_tasks:
     - name: add fpm containers to inventory
       include: ./container_inventory.yml
   tasks:
+    - debug: var=ansible_all_ipv4_addresses
+    - debug: var=ansible_default_ipv4.address
     - name: check ping
       ping:
     - name: run command in container
