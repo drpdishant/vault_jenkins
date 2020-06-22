@@ -35,7 +35,7 @@ pipeline {
                 '''
                 sh '''
                 echo "${ANSIBLE_HOST} ansible_user=${ANSIBLE_USER} ansible_port=${ANSIBLE_PORT}" > hosts && \
-                ansible-playbook main.yml
+                ansible-playbook main.yml -vv
                 '''
                 }
             }
