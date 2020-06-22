@@ -1,0 +1,7 @@
+project_name: laravel-demo
+project_root: /srv/www
+project_type: laravel
+nginx_config_root: /home/addweb/addweb-docker-stack/nginx_conf
+project_repo: https://github.com/laravel/laravel.git
+git_protocol: http
+magicdns: true
