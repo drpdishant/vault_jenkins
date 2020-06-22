@@ -3,7 +3,7 @@
   gather_facts: true
   pre_tasks:
     - name: add fpm containers to inventory
-      include: ./container_inventory.yaml
+      include: ./container_inventory.yml
   tasks:
     - name: check ping
       ping:
