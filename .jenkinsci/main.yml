@@ -8,5 +8,5 @@
     - name: check ping
       ping:
     - name: run command in container
-      delegate_to: [fpm7.2]
+      delegate_to: fpm7.2
       raw: php -m

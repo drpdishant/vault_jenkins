@@ -1,5 +1,5 @@
 - name: add fpm7.2
   add_host:
-    name: [fpm7.2]
+    name: fpm7.2
     ansible_connection: docker
   changed_when: false
