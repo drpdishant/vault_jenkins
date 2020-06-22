@@ -3,3 +3,8 @@
     name: fpm7.2
     ansible_connection: docker
   changed_when: false
+- name: add nginx
+  add_host:
+    name: web
+    ansible_connection: docker
+  changed_when: false

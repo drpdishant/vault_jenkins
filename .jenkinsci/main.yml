@@ -14,4 +14,7 @@
     - name: run command in container
       delegate_to: fpm7.2
       raw: php -v
+    - name: run command in web container
+      delegate_to: web
+      raw: nginx -t
     
