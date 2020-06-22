@@ -1,7 +1,12 @@
 ---
 - hosts: all
   gather_facts: true
+  pre_tasks:
+    - name: add fpm containers to inventory
+      include: ./container_inventory.yaml
   tasks:
     - name: check ping
       ping:
-    
+    - name: run command in container
+      delegate_to: [fpm7.2]
+      raw: php -m
