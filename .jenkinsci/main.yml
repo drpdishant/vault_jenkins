@@ -3,15 +3,15 @@
   name: Install Laravel Project
   gather_facts: true
   vars_files:
-    - vars/main.yml
+    - ./vars/main.yml
   pre_tasks:
     - name: add fpm containers to inventory
       include: ./container_inventory.yml
   tasks:
-    - debug: var=ansible_all_ipv4_addresses
     - debug: var=ansible_default_ipv4.address
-    - name: check ping
-      ping:
+    - debug:
+        msg: Nginx Server Name Set to {{ project_name }}.{{ ansible_default_ipv4.address }}.nip.io
     - name: run command in container
       delegate_to: fpm7.2
-      raw: php -m
+      raw: php -v
+    

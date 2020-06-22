@@ -5,3 +5,4 @@ nginx_config_root: /home/addweb/addweb-docker-stack/nginx_conf
 project_repo: https://github.com/laravel/laravel.git
 git_protocol: http
 magicdns: true
+php_version: 7.2
