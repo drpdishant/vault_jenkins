@@ -14,19 +14,9 @@
     - name: run command in container
       delegate_to: fpm7.2
       raw: php -v
-
-    - name: Get infos on container
-      docker_container_info:
-        name: web
-      register: result
-
-    - name: Does container exist?
-      debug:
-        msg: "The container {{ 'exists' if result.exists else 'does not exist' }}"
-
-    - name: run command in web container
+    - name: run command in nginx
       delegate_to: web
       raw: nginx -t
-      when: result.exists
-    
-    
+      register: nginx_test
+    - debug:
+        var: nginx_test
