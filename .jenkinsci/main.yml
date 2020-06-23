@@ -4,11 +4,13 @@
   gather_facts: true
   vars_files:
     - ./vars/main.yml
+    - ./vars/artisan_commands.yml
   pre_tasks:
     - name: add fpm containers to inventory
       include: ./container_inventory.yml
   tasks:
     - debug: var=ansible_default_ipv4.address
+    - debug: var=artisan
     - git:
         repo: "{{project_repo}}"
         dest: "{{project_root}}/{{project_type}}/{{project_name}}"
@@ -28,7 +30,14 @@
         dest: "{{project_root}}/{{project_type}}/{{project_name}}/.env"
     - name: run composer install
       delegate_to: "fpm{{php_version}}"
-      raw: sh -c "cd {{project_root}}/{{project_type}}/{{project_name}} && composer install && php artisan migrate && php artisan key:generate && php artisan migrate && php artisan db:seed --class=DummyDataSeeder"
+      raw: sh -c "cd {{project_root}}/{{project_type}}/{{project_name}} && composer install"
+
+    - name: run artisan
+      delegate_to: "fpm{{php_version}}"
+      raw: sh -c "cd {{project_root}}/{{project_type}}/{{project_name}} && php artisan {{ item }}"
+      with_items: 
+        - "{{artisan}}"
+
     - name: create nginx conf
       template:
         src: "templates/nginx_{{project_type}}.j2"

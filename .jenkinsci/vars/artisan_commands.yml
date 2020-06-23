@@ -1,0 +1,4 @@
+artisan:
+  - migrate
+  - key:generate
+  - migrate
