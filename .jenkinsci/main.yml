@@ -9,14 +9,43 @@
       include: ./container_inventory.yml
   tasks:
     - debug: var=ansible_default_ipv4.address
+    - git:
+        repo: "{{project_repo}}"
+        dest: "{{project_root}}/{{project_type}}/{{project_name}}"
+        update: yes
+        force: yes
+    - name: Create a new database with name 'bobdata'
+      mysql_db:
+        name: "{{db_name}}"
+        login_user: "{{db_user}}"
+        login_password: "{{db_pass}}"
+        login_host: localhost
+        login_port: 33066
+        state: present
+    - name: create .env 
+      template:
+        src: "templates/{{project_type}}_env.j2"
+        dest: "{{project_root}}/{{project_type}}/{{project_name}}/.env"
+    - name: run composer install
+      delegate_to: "fpm{{php_version}}"
+      raw: sh -c "cd {{project_root}}/{{project_type}}/{{project_name}} && composer install && php artisan migrate && php artisan key:generate && php artisan migrate && php artisan db:seed --class=DummyDataSeeder"
+    - name: create nginx conf
+      template:
+        src: "templates/nginx_{{project_type}}.j2"
+        dest: "{{nginx_config_root}}/{{project_name}}.conf"
+    
     - debug:
         msg: Nginx Server Name Set to {{ project_name }}.{{ ansible_default_ipv4.address }}.nip.io
-    - name: run command in container
-      delegate_to: fpm7.2
-      raw: php -v
     - name: run command in nginx
       delegate_to: web
       raw: nginx -t
       register: nginx_test
+      changed_when: false
+
     - debug:
         var: nginx_test
+    - name: Restart a container
+      command: docker restart web
+      when: 
+      - nginx_test.rc == 0
+      changed_when: false
