@@ -1,4 +1,4 @@
 artisan:
-  - migrate
+        # - migrate
   - key:generate
-  - migrate
+  - migrate --seed
