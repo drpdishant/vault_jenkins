@@ -33,9 +33,15 @@ pipeline {
                 sh '''
                 ./vault_read.sh -u $VAULT_SERVER -r $ROLE_ID -s $ROLE_SECRET -p $KV_PATH -n $KV_NAME -f $KV_FIELD > id_rsa && chmod 400 id_rsa && ssh-keygen -l -f id_rsa
                 '''
+                echo "Get Docker TLS Certs"
+                sh '''
+                ./vault_read.sh -u $VAULT_SERVER -r $ROLE_ID -s $ROLE_SECRET -p devops -n docker_tls -f client_cert > client-cert.pem && \
+                ./vault_read.sh -u $VAULT_SERVER -r $ROLE_ID -s $ROLE_SECRET -p devops -n docker_tls -f client_key > client-key.pem && \
+                cat ca.pem && cat client-cert.pem && cat client-key.pem
+                '''
                 sh '''
                 echo "${ANSIBLE_HOST} ansible_user=${ANSIBLE_USER} ansible_port=${ANSIBLE_PORT}" > hosts && \
-                ansible-playbook main.yml
+                ansible-playbook main.yml -v
                 '''
                 }
             }
