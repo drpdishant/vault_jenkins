@@ -1,4 +1,6 @@
 artisan:
   - migrate
   - key:generate
-    # - migrate --seed
+  - migrate --seed
+  - vendor:publish
+  - serve
