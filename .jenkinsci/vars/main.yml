@@ -1,4 +1,4 @@
-project_name: curd-demo
+project_name: curd_demo
 project_root: /srv/www
 project_type: laravel
 nginx_config_root: /home/addweb/addweb-docker-stack/nginx_conf
