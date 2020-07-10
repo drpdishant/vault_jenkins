@@ -4,9 +4,9 @@ listen 80;
     listen [::]:80;
     listen 443 ;
 
-    server_name {{ project_name }}.{{ ansible_default_ipv4.address }}.nip.io;
+    server_name {{ project_name.stdout | trim }}.{{ ansible_default_ipv4.address }}.nip.io;
         ## Your only path reference.
-        root {{ project_root }}/{{ project_type }}/{{ project_name }}/public;
+        root {{ project_root }}/{{ project_type }}/{{ project_name.stdout | trim }}/public;
 		
         # include snippets/addwebprojects-ssl.conf;
         # include snippets/ssl-params.conf;
