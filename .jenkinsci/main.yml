@@ -11,9 +11,19 @@
   tasks:
     - debug: var=ansible_default_ipv4.address
     - debug: var=artisan
+
+    - name: project_type define
+
+    - name: project name
+       raw: echo "{{ url }}" | awk -F"/" '{print $NF}' | sed 's/.git.*//'
+       register: project_name
+
+    - set_fact:
+       string_to_echo: "{{ project_name.stdout_lines }}"
+
     - git:
         repo: "{{project_repo}}"
-        dest: "{{project_root}}/{{project_type}}/{{project_name}}"
+        dest: "{{project_root}}/{{project_type}}/{{project_name.stdout | trim }}"
         update: yes
         force: yes
     - name: Create a new database with name 'bobdata'
@@ -27,24 +37,24 @@
     - name: create .env 
       template:
         src: "templates/{{project_type}}_env.j2"
-        dest: "{{project_root}}/{{project_type}}/{{project_name}}/.env"
+        dest: "{{project_root}}/{{project_type}}/{{project_name.stdout | trim}}/.env"
     - name: run composer install
       delegate_to: "fpm{{php_version}}"
-      raw: sh -c "cd {{project_root}}/{{project_type}}/{{project_name}} && composer install"
+      raw: sh -c "cd {{project_root}}/{{project_type}}/{{project_name.stdout | trim}} && composer install"
 
     - name: run artisan
       delegate_to: "fpm{{php_version}}"
-      raw: sh -c "cd {{project_root}}/{{project_type}}/{{project_name}} && php artisan {{ item }}"
+      raw: sh -c "cd {{project_root}}/{{project_type}}/{{project_name.stdout | trim}} && php artisan {{ item }}"
       with_items: 
         - "{{artisan}}"
 
     - name: create nginx conf
       template:
         src: "templates/nginx_{{project_type}}.j2"
-        dest: "{{nginx_config_root}}/{{project_name}}.conf"
+        dest: "{{nginx_config_root}}/{{ project_name.stdout | trim }}.conf"
     
     - debug:
-        msg: Nginx Server Name Set to {{ project_name }}.{{ ansible_default_ipv4.address }}.nip.io
+        msg: Nginx Server Name Set to {{ project_name.stdout | trim }}.{{ ansible_default_ipv4.address }}.nip.io
     - name: run command in nginx
       delegate_to: web
       raw: nginx -t
