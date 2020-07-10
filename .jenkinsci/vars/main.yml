@@ -2,8 +2,7 @@
 project_root: /srv/www
 project_type: laravel
 nginx_config_root: /home/addweb/addweb-docker-stack/nginx_conf
-#project_repo: "{{ lookup('env','GIT_URL') }}"
-project_repo: "https://github.com/mul14/laravel-crud-demo.git"
+project_repo: "{{ lookup('env','GIT_URL') }}"
 git_protocol: http
 magicdns: true
 php_version: 7.2
