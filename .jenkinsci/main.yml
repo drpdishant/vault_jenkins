@@ -15,8 +15,8 @@
     - name: project_type define
 
     - name: project name
-       raw: echo "{{ project_repo }}" | awk -F"/" '{print $NF}' | sed 's/.git.*//'
-       register: project_name
+      raw: echo "{{ project_repo }}" | awk -F"/" '{print $NF}' | sed 's/.git.*//'
+      register: project_name
 
     - set_fact:
        string_to_echo: "{{ project_name.stdout_lines }}"
@@ -26,6 +26,7 @@
         dest: "{{project_root}}/{{project_type}}/{{project_name.stdout | trim }}"
         update: yes
         force: yes
+
     - name: Create a new database with name 'bobdata'
       mysql_db:
         name: "{{db_name}}"
