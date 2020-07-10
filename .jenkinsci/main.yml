@@ -15,10 +15,10 @@
 
     - name: shell script execute
       shell: |
-        if [ "$( echo $( cat {{ path }}) | grep laravel)" ];
+        if [ "$( echo $( cat {{ composer_path }}) | grep laravel)" ];
         then
           echo "laravel"
-        elif [[ "$( echo $( cat {{ path }}) | grep drupal)" ]]; then
+        elif [[ "$( echo $( cat {{ composer_path }}) | grep drupal)" ]]; then
             echo "drupal"
         else
           echo "please define framework type"
