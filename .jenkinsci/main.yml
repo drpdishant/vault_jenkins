@@ -13,6 +13,22 @@
     - debug: var=ansible_default_ipv4.address
     - debug: var=artisan
 
+    - name: shell script execute
+      shell: |
+        if [ "$( echo $( cat {{ path }}) | grep laravel)" ];
+        then
+          echo "laravel"
+        elif [[ "$( echo $( cat {{ path }}) | grep drupal)" ]]; then
+            echo "drupal"
+        else
+          echo "please define framework type"
+         fi  
+
+      register: project_type
+
+    - set_fact:
+        string_to_echo: "{{ project_type }}"
+
     - name: project name
       raw: echo "{{ project_repo }}" | awk -F"/" '{print $NF}' | sed 's/.git.*//'
       register: project_name
