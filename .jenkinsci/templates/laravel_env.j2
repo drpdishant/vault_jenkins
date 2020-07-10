@@ -2,7 +2,7 @@ APP_ENV=local
 APP_KEY=
 APP_DEBUG=true
 APP_LOG_LEVEL=debug
-APP_URL="{{project_root}}"/{{project_type}}/{{ project_name.stdout | trim }}
+APP_URL="{{project_root}}/{{project_type}}/{{project_name.stdout | trim}}"
 
 DB_CONNECTION=mysql
 DB_HOST="{{db_host}}"
