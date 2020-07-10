@@ -15,7 +15,7 @@
     - name: project_type define
 
     - name: project name
-       raw: echo "{{ url }}" | awk -F"/" '{print $NF}' | sed 's/.git.*//'
+       raw: echo "{{ project_repo }}" | awk -F"/" '{print $NF}' | sed 's/.git.*//'
        register: project_name
 
     - set_fact:
