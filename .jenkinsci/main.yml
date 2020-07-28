@@ -21,8 +21,8 @@
     - set_fact:
        string_to_echo: "{{ project_name.stdout_lines }}"
 
-    - name: shell script execute
-      shell: |
+    - name: Project type define
+      raw: |
         if [ "$( echo $( cat {{ composer_path }}) | grep laravel)" ];
         then
           echo "laravel"
@@ -30,15 +30,14 @@
             echo "drupal"
         else
           echo "please define framework type"
-         fi 
-
+        fi 
       register: project_type
 
     - set_fact:
         string_to_echo: "{{ project_type.stdout }}"
 
     - debug:
-       var: project_type.stdout
+        var: project_type.stdout
 
     - git:
         repo: "{{project_repo}}"
