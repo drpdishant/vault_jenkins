@@ -22,6 +22,7 @@
        string_to_echo: "{{ project_name.stdout_lines }}"
 
     - name: Touch a file
+      become: true
       file:
         path: /var/lib/jenkins/jobs/{{ lookup('env','JOB_NAME') }}/workspace/comp.txt
         state: touch
