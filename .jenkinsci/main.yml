@@ -24,7 +24,7 @@
     - name: Touch a file
       file:
         path: "{{ composer_path }}"
-        state: touch
+        state: directory
 
     # - name: Project type define
     #   shell: |
