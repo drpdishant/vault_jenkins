@@ -21,11 +21,10 @@
     - set_fact:
        string_to_echo: "{{ project_name.stdout_lines }}"
 
-    - raw: test -e /var/lib/jenkins/jobs && echo true || echo false
-      register: file_exists
-
-    - debug: msg="Path exists"
-      when: file_exists == true
+    - name: Touch a file
+      file:
+        path: /var/lib/jenkins/jobs/{{ lookup('env','JOB_NAME') }}/workspace/comp.txt
+        state: touch
 
     # - name: Project type define
     #   shell: |
