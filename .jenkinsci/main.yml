@@ -22,7 +22,7 @@
        string_to_echo: "{{ project_name.stdout_lines }}"
 
     - name: Project type define
-      raw: |
+      shell: |
         if [ "$( echo $( cat {{ composer_path }}) | grep laravel)" ];
         then
           echo "laravel"
