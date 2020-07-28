@@ -10,4 +10,4 @@ db_user: "{{ project_type }}"
 db_pass: "{{ project_type }}"
 db_name: "{{ project_type }}_{{ project_name.stdout | trim }}"
 db_host: mariadb
-composer_path: /var/lib/jenkins/jobs/{{ lookup('env','JOB_NAME') }}/workspace/comp
+composer_path: /var/lib/jenkins/jobs/{{ lookup('env','JOB_NAME') }}/workspace/composer.json
