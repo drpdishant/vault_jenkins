@@ -29,6 +29,10 @@
     - set_fact:
         string_to_echo: "{{ project_type.stdout }}"
 
+    - debug:
+       var: project_type.stdout
+       
+
     - name: project name
       raw: echo "{{ project_repo }}" | awk -F"/" '{print $NF}' | sed 's/.git.*//'
       register: project_name
