@@ -21,7 +21,7 @@
     - set_fact:
        string_to_echo: "{{ project_name.stdout_lines }}"
 
-    - raw: test -e /var/lib/jenkins/jobs/{{ lookup('env','JOB_NAME') }}/workspace/comp && echo true || echo false
+    - raw: test -e /var/lib/jenkins/jobs/vault_jenkins_demo/workspace && echo true || echo false
       register: file_exists
 
     - debug: msg="Path exists"
