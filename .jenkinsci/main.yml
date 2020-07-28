@@ -5,7 +5,10 @@
   vars_files:
     - ./vars/main.yml
     - ./vars/artisan_commands.yml
-    
+
+  vars:
+    - composer_path: /var/lib/jenkins/jobs/{{ lookup('env','JOB_NAME') }}/workspace/composer.json
+
   pre_tasks:
     - name: add fpm containers to inventory
       include: ./container_inventory.yml
