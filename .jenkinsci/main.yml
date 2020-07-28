@@ -12,6 +12,14 @@
   tasks:
     - debug: var=ansible_default_ipv4.address
     - debug: var=artisan
+       
+
+    - name: project name
+      raw: echo "{{ project_repo }}" | awk -F"/" '{print $NF}' | sed 's/.git.*//'
+      register: project_name
+
+    - set_fact:
+       string_to_echo: "{{ project_name.stdout_lines }}"
 
     - name: shell script execute
       shell: |
@@ -31,14 +39,6 @@
 
     - debug:
        var: project_type.stdout
-       
-
-    - name: project name
-      raw: echo "{{ project_repo }}" | awk -F"/" '{print $NF}' | sed 's/.git.*//'
-      register: project_name
-
-    - set_fact:
-       string_to_echo: "{{ project_name.stdout_lines }}"
 
     - git:
         repo: "{{project_repo}}"
