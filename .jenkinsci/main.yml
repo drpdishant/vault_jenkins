@@ -32,8 +32,6 @@
         else
           echo "please define framework type"
         fi 
-      
-
       register: project_type
 
     - set_fact:
