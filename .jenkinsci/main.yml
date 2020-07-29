@@ -41,7 +41,10 @@
 
     - debug:
         var: db_user
-    
+    - debug:
+        var: db_pass
+    - debug:
+        var: db_name
 
     # - git:
     #     repo: "{{project_repo}}"
