@@ -22,6 +22,7 @@
        string_to_echo: "{{ project_name.stdout_lines }}"
 
     - name: Project type define
+      delegate_to: 127.0.0.1
       shell: |
         if [ "$( echo $( cat {{ composer_path }}) | grep laravel)" ];
         then
@@ -31,8 +32,7 @@
         else
           echo "please define framework type"
         fi 
-
-      delegate_to: 127.0.0.1
+      
 
       register: project_type
 
