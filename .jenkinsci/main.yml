@@ -39,6 +39,10 @@
     - set_fact:
        string_to_echo: "{{ project_name.stdout_lines }}"
 
+    - debug:
+        var: db_user
+    
+
     # - git:
     #     repo: "{{project_repo}}"
     #     dest: "{{project_root}}/{{project_type.stdout}}/{{project_name.stdout | trim }}"
