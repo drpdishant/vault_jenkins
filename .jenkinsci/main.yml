@@ -82,7 +82,7 @@
     - debug:
         msg: Nginx Server Name Set to {{ project_name.stdout | trim }}.{{ ansible_default_ipv4.address }}.nip.io
       
-   - name: run command in nginx
+    - name: run command in nginx
       delegate_to: web
       raw: nginx -t
       register: nginx_test
