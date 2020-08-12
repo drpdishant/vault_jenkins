@@ -1,7 +1,7 @@
 # project_name: curd_demo
 project_root: /srv/www
 #project_type: laravel
-nginx_config_root: /home/addweb/addweb-docker-stack/nginx_conf
+nginx_config_root: /home/addweb/addweb-docker-stack/nginx_conf/{{ project_type.stdout }}/
 project_repo: "{{ lookup('env','GIT_URL') }}"
 git_protocol: http
 magicdns: true

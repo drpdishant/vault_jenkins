@@ -72,7 +72,7 @@
       raw: sh -c "cd {{project_root}}/{{project_type.stdout}}/{{project_name.stdout | trim}} && php artisan {{ item }}"
       with_items: 
         - "{{artisan}}"
-      when: project_type.stdout == "laravel" 
+      when: project_type.stdout == "laravel"
 
     - name: create nginx conf
       template:
