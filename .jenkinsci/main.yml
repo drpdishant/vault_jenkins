@@ -32,71 +32,71 @@
     - debug:
         var: project_type.stdout
 
-    - name: project name
-      raw: echo "{{ project_repo }}" | awk -F"/" '{print $NF}' | sed 's/.git.*//' | tr -d _.-
-      register: project_name
+  #  - name: project name
+#       raw: echo "{{ project_repo }}" | awk -F"/" '{print $NF}' | sed 's/.git.*//' | tr -d _.-
+#       register: project_name
 
-    - set_fact:
-       string_to_echo: "{{ project_name.stdout_lines }}"
+#     - set_fact:
+#        string_to_echo: "{{ project_name.stdout_lines }}"
 
-    - git:
-        repo: "{{project_repo}}"
-        dest: "{{project_root}}/{{project_type.stdout}}/{{project_name.stdout | trim }}"
-        update: yes
-        force: yes
+#     - git:
+#         repo: "{{project_repo}}"
+#         dest: "{{project_root}}/{{project_type.stdout}}/{{project_name.stdout | trim }}"
+#         update: yes
+#         force: yes
 
 
-    - name: Create a new database with name 'bobdata'
-      mysql_db:
-        name: "{{db_name}}"
-        login_user: "{{db_user}}"
-        login_password: "{{db_pass}}"
-        login_host: localhost
-        login_port: 33066
-        state: present
+#     - name: Create a new database with name 'bobdata'
+#       mysql_db:
+#         name: "{{db_name}}"
+#         login_user: "{{db_user}}"
+#         login_password: "{{db_pass}}"
+#         login_host: localhost
+#         login_port: 33066
+#         state: present
 
-    - name: create .env 
-      template:
-        src: "templates/{{project_type.stdout}}_env.j2"
-        dest: "{{project_root}}/{{project_type.stdout}}/{{project_name.stdout | trim}}/.env"
-      when: project_type.stdout == "laravel" 
+#     - name: create .env 
+#       template:
+#         src: "templates/{{project_type.stdout}}_env.j2"
+#         dest: "{{project_root}}/{{project_type.stdout}}/{{project_name.stdout | trim}}/.env"
+#       when: project_type.stdout == "laravel" 
       
-    - name: run composer install
-      delegate_to: "fpm{{php_version}}"
-      raw: sh -c "cd {{project_root}}/{{project_type.stdout}}/{{project_name.stdout | trim}} && composer install"
-      when: project_type.stdout == "laravel" 
+#     - name: run composer install
+#       delegate_to: "fpm{{php_version}}"
+#       raw: sh -c "cd {{project_root}}/{{project_type.stdout}}/{{project_name.stdout | trim}} && composer install"
+#       when: project_type.stdout == "laravel" 
 
 
-    - name: run artisan
-      delegate_to: "fpm{{php_version}}"
-      raw: sh -c "cd {{project_root}}/{{project_type.stdout}}/{{project_name.stdout | trim}} && php artisan {{ item }}"
-      with_items: 
-        - "{{artisan}}"
-      when: project_type.stdout == "laravel" 
+#     - name: run artisan
+#       delegate_to: "fpm{{php_version}}"
+#       raw: sh -c "cd {{project_root}}/{{project_type.stdout}}/{{project_name.stdout | trim}} && php artisan {{ item }}"
+#       with_items: 
+#         - "{{artisan}}"
+#       when: project_type.stdout == "laravel" 
 
-    - name: create nginx conf
-      template:
-        src: "templates/nginx_{{project_type.stdout}}.j2"
-        dest: "{{nginx_config_root}}/{{ project_name.stdout | trim }}.conf"
+#     - name: create nginx conf
+#       template:
+#         src: "templates/nginx_{{project_type.stdout}}.j2"
+#         dest: "{{nginx_config_root}}/{{ project_name.stdout | trim }}.conf"
       
-    - debug:
-        msg: Nginx Server Name Set to {{ project_name.stdout | trim }}.{{ ansible_default_ipv4.address }}.nip.io
+#     - debug:
+#         msg: Nginx Server Name Set to {{ project_name.stdout | trim }}.{{ ansible_default_ipv4.address }}.nip.io
       
-    - name: run command in nginx
-      delegate_to: web
-      raw: nginx -t
-      register: nginx_test
-      changed_when: false
+#     - name: run command in nginx
+#       delegate_to: web
+#       raw: nginx -t
+#       register: nginx_test
+#       changed_when: false
      
-    - debug:
-        var: nginx_test
+#     - debug:
+#         var: nginx_test
       
-    - name: Restart a container
-      command: docker restart web
-      when: 
-      - nginx_test.rc == 0
-      changed_when: false
+#     - name: Restart a container
+#       command: docker restart web
+#       when: 
+#       - nginx_test.rc == 0
+#       changed_when: false
       
 
-########################################################################################
-########################################################################################
+# ########################################################################################
+# ########################################################################################
