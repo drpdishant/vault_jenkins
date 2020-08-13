@@ -1,19 +1,4 @@
-# ---
-# - hosts: all
-#   name: Install Laravel Project
-#   gather_facts: true
-#   vars_files:
-#     - ./vars/main.yml
-#     - ./vars/artisan_commands.yml
     
-#   pre_tasks:
-#     - name: add fpm containers to inventory
-#       include: ./container_inventory.yml
-#   tasks:
-#     - debug: var=ansible_default_ipv4.address
-#     - debug: var=artisan
-       
-      
     - name: create .env 
       template:
         src: "templates/{{project_type.stdout}}_env.j2"
